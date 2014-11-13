@@ -22,24 +22,27 @@ module.exports = function (opt) {
     var dest = replaceExtension(file.path);
 
     var options = merge({
-      bare: false,
-      header: false,
-      sourceMap: !!file.sourceMap,
-      sourceRoot: false,
-      literate: /\.(litpyj|pyj\.md)$/.test(file.path),
-      filename: file.path,
-      sourceFiles: [file.relative],
-      generatedFile: replaceExtension(file.relative)
+        IE8: true,              // screw compliance quirks for IE6-8
+        bare: false,
+        prettify: true,
+        namespace: false,
+        autobind: false,
+        omitbase: false,
+        comments: true,
+        runtests: false,
+        stats: true,
+        verbose: true
+        // sourceMap: !!file.sourceMap,
     }, opt);
 
     try {
-      // data = rapyd.compile(str, options);
         data = rapyd.minify(file.path, options)
         data = data["code"];
     } catch (err) {
       return cb(new PluginError('gulp-rapyd', err));
     }
 
+    // TODO: with rapyd
     if (data && data.v3SourceMap && file.sourceMap) {
       applySourceMap(file, data.v3SourceMap);
       file.contents = new Buffer(data.js);

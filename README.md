@@ -1,25 +1,25 @@
 
 ## Information
 
-<table>
-<tr>
-<td>Package</td><td>gulp-rapyd</td>
-</tr>
-<tr>
-<td>Description</td>
-<td>Compiles RapydScript</td>
-</tr>
-<tr>
-<td>Node Version</td>
-<td>>= 0.9</td>
-</tr>
-</table>
+Compiles [RapydScript][] files.
+
+Node Version: >= 0.9
 
 This package exists thanks to
 [gulp-coffee](https://github.com/wearefractal/gulp-coffee/) by
 wearefractal.
 
+[RapydScript]: https://gitlab.com/vindarel/gulp-rapyd
+
+
+## Install
+
+Install with:
+
+    npm install https://gitlab.com/vindarel/gulp-rapyd.git
+
 ## Usage
+
 
 ```javascript
 var rapyd = require('gulp-rapyd');
@@ -87,38 +87,125 @@ gulp.src('./src/*.rapyd')
 
 ## Options
 
-The options object supports the same options as the standard CoffeeScript compiler
+UNTESTED YET
 
-TODO: remove coffee options
+#### options.IE8
+Type: `Boolean`
+Default value: `false`
 
-## Source maps (UNTESTED WITH RAPYD)
+Sets the following flag:
 
-gulp-rapyd can be used in tandem with [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) to generate source maps for the rapyd to javascript transition. You will need to initialize [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) prior to running the gulp-rapyd compiler and write the source maps after.
+```
+--screw-ie8              Pass this flag if you don't care about full
+                         compliance with Internet Explorer 6-8 quirks (by
+                         default RapydScript will try to be IE-proof).
 
-```javascript
-var sourcemaps = require('gulp-sourcemaps');
-
-gulp.src('./src/*.rapyd')
-  .pipe(sourcemaps.init())
-  .pipe(rapyd())
-  .pipe(sourcemaps.write())
-  .pipe(gulp.dest('./dest/js'));
-
-// will write the source maps inline in the compiled javascript files
 ```
 
-By default, [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) writes the source maps inline in the compiled javascript files. To write them to a separate file, specify a relative file path in the `sourcemaps.write()` function.
+#### options.bare
+Type: `Boolean`
+Default value: `false`
 
-```javascript
-var sourcemaps = require('gulp-sourcemaps');
+Sets the following flag:
 
-gulp.src('./src/*.rapyd')
-  .pipe(sourcemaps.init())
-  .pipe(rapyd({ bare: true })).on('error', gutil.log)
-  .pipe(sourcemaps.write('./maps'))
-  .pipe(gulp.dest('./dest/js'));
+```
+-b, --bare               Remove the module wrapper that prevents RapydScript
+                         scope from bleeding into other JavaScript logic.
+```
 
-// will write the source maps to ./dest/js/maps
+#### options.namespace
+Type: `Boolean`
+Default value: `false`
+
+Sets the following flag:
+
+```
+-n, --namespace-imports  Import files into separate modules like Python
+                         instead of concatenating them [experimental].
+```
+
+#### options.autobind
+Type: `Boolean`
+Default value: `false`
+
+Sets the following flag:
+
+```
+-i, --auto-bind          Automatically bind function methods to functions
+                           themselves instead of using @bound decorator
+                           [experimental].
+```
+
+#### options.prettify
+Type: `Boolean`
+Default value: `true`
+
+Sets the following flag:
+
+```
+-p, --prettify           Prettify output/specify output options.
+```
+
+#### options.omitbase
+Type: `Boolean`
+Default value: `false`
+
+Sets the following flag:
+
+```
+-m, --omit-baselib       Omit baselib functions (use this if you have a
+                           different way of ensuring they're imported, such as
+                           including baselib.js).
+```
+
+#### options.runtests
+Type: `Boolean`
+Default value: `false`
+
+Sets the following flag:
+
+```
+-t, --test               Run RapydScript tests
+```
+
+#### options.comments
+Type: `Boolean`
+Default value: `true`
+
+Sets the following flag:
+
+```
+  --comments               Preserve copyright comments in the output. By
+                           default this works like Google Closure, keeping
+                           JSDoc-style comments that contain "@license" or
+                           "@preserve". You can optionally pass one of the
+                           following arguments to this flag:
+                           - "all" to keep all comments
+                           - a valid JS regexp (needs to start with a slash) to
+                           keep only comments that match.
+                           Note that currently not *all* comments can be kept
+                           when compression is on, because of dead code removal
+                           or cascading statements into sequences.      [string]
+```
+
+#### options.stats
+Type: `Boolean`
+Default value: `true`
+
+Sets the following flag:
+
+```
+--stats                  Display operations run time on STDERR.
+```
+
+#### options.verbose
+Type: `Boolean`
+Default value: `true`
+
+Sets the following flag:
+
+```
+-v, --verbose            Verbose
 ```
 
 ## LICENSE
