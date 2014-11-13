@@ -9,14 +9,14 @@ This package exists thanks to
 [gulp-coffee](https://github.com/wearefractal/gulp-coffee/) by
 wearefractal.
 
-[RapydScript]: https://gitlab.com/vindarel/gulp-rapyd
+[RapydScript]: https://github.com/atsepkov/RapydScript
 
 
 ## Install
 
 Install with:
 
-    npm install https://gitlab.com/vindarel/gulp-rapyd.git
+    npm install git://github.com/vindarel/gulp-rapyd
 
 ## Usage
 
